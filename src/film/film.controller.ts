@@ -34,8 +34,8 @@ export class FilmController {
     return this.filmService.updateFilm(body);
   }
 
-  @Delete()
-  async filmDeleteHandler(@Param() title: string): Promise<FilmDocumentType> {
-    return this.filmService.deleteFilm(title);
-  }
+  // @Delete()
+  // async filmDeleteHandler(@Param() title: string): Promise<FilmDocumentType> {
+  //   return this.filmService.deleteFilm(title);
+  // }
 }
