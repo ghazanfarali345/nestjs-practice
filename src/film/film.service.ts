@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { existingFilmDTO } from './dtos/existing-film.dto';
 import { newFilmDTO } from './dtos/new-film.dto';
 import { Film, FilmDocumentType } from './film.schema';
 
@@ -20,12 +21,11 @@ export class FilmService {
   }
 
   async updateFilm(
-    _id: Types.ObjectId,
-    data: newFilmDTO,
+    // _id: Types.ObjectId,
+    data: existingFilmDTO,
   ): Promise<FilmDocumentType> {
-    this.logger.log('Update >>>>', { _id });
     let film = await this.filmModel.findByIdAndUpdate(
-      { _id: _id.id },
+      { _id: data.id },
       { ...data },
       { new: true },
     );

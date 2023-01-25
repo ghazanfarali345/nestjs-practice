@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { FilmService } from './film.service';
 
 import { FilmDocumentType } from './film.schema';
 import { newFilmDTO } from './dtos/new-film.dto';
+import { existingFilmDTO } from './dtos/existing-film.dto';
+import { Types } from 'mongoose';
 
 @Controller('film')
 export class FilmController {
@@ -15,5 +25,17 @@ export class FilmController {
   @Get()
   async getFilmListHandler(): Promise<FilmDocumentType[]> {
     return this.filmService.getAllFilms();
+  }
+
+  @Put()
+  async filmUpdateHandler(
+    @Body() body: existingFilmDTO,
+  ): Promise<FilmDocumentType> {
+    return this.filmService.updateFilm(body);
+  }
+
+  @Delete()
+  async filmDeleteHandler(@Param() title: string): Promise<FilmDocumentType> {
+    return this.filmService.deleteFilm(title);
   }
 }
