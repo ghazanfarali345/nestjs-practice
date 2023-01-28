@@ -12,8 +12,12 @@ export class FilmService {
   private logger = new Logger(FilmService.name);
 
   async createFilm(data: newFilmDTO): Promise<FilmDocumentType> {
-    let film = await this.filmModel.create({ ...data });
-    return film;
+    try {
+      let film = await this.filmModel.create({ ...data });
+      return film;
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   async getAllFilms(): Promise<FilmDocumentType[]> {
